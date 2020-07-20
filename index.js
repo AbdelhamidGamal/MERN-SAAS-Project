@@ -6,6 +6,6 @@ app.get('/', (req, res) => {
   res.send({ hi: 'there' })
 })
 
-app.listen(5000, () => {
+app.listen(80, () => {
   console.log('Server is running at localhost:5000')
 })
