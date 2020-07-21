@@ -1,16 +1,13 @@
-const express = require('express')
-const app = express()
+const express = require("express");
 
-const PORT = process.env.PORT || 5000
+const authRouter = require("./routes/authRoutes");
 
+const PORT = process.env.PORT || 5000;
 
+const app = express();
 
-
-
-app.get('/', (req, res) => {
-  res.send({ hi: 'there' })
-})
+app.use(authRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is running at port ${PORT}`)
-})
+  console.log(`Server is running at port ${PORT}`);
+});
