@@ -11,10 +11,32 @@ const Survey = mongoose.model('surveys');
 const mailgun = require('mailgun-js');
 const DOMAIN = 'sandbox9a5014b2780f4e26bd4148b7d4cd49e4.mailgun.org';
 
-router.post('/api/surveys/webhook', (req, res) => {
-  const recipient = req.body['event-data'].recipient;
-  const link = req.body['event-data']['recipient-domain'];
-  console.log(recipient, link);
+router.post('/api/surveys/webhook', async (req, res) => {
+  const recipientEmail = req.body['event-data'].recipient;
+  const url = req.body['event-data'].url;
+  const urlParts = ur.split('/');
+  const surveyId = urlParts[5];
+  const vote = urlParts[6];
+
+  // find survey
+  survey = await Survey.findById(surveyId);
+
+  // mark recipient responded to true
+  recipient = survey.recipients.find((r) => r.email === recipientEmail);
+  recipient.responded = true;
+
+  // increment yes or no count
+  if (vote === 'yes') {
+    survey.yes++;
+  } else {
+    survey.no++;
+  }
+
+  // save survey
+  await survey.save();
+
+  // respond to request
+  res.status(200).send('voted');
 });
 
 router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
