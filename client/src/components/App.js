@@ -22,7 +22,7 @@ const App = ({ handleFetchUser }) => {
         <Route exact path='/' component={Landing} />
         <Route exact path='/surveys' component={Dashboard} />
         <Route exact path='/surveys/new' component={SurveyNew} />
-        <Route exact path='/surveys/thanks' component={Thanks} />
+        <Route path='/surveys/thanks' component={Thanks} />
       </Switch>
     </BrowserRouter>
   );

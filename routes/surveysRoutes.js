@@ -12,7 +12,9 @@ const mailgun = require('mailgun-js');
 const DOMAIN = 'sandbox9a5014b2780f4e26bd4148b7d4cd49e4.mailgun.org';
 
 router.post('/api/surveys/webhook', (req, res) => {
-  console.log(req.body);
+  const recipient = body.event - data.recipient;
+  const link = body.event - data.recipient - domain;
+  console.log(recipient, link);
 });
 
 router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
@@ -45,10 +47,10 @@ router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
         <p> Please Answer The Following Question</p>
         <p> ${body} </p>
         <div>
-        <a href="${keys.redirectDomain}/surveys/thanks"> Yes </a> 
+        <a href="${keys.redirectDomain}surveys/thanks/${survey.id}/yes"> Yes </a> 
         </div>
         <div>
-        <a href="${keys.redirectDomain}/surveys/thanks"> No </a>
+        <a href="${keys.redirectDomain}surveys/thanks/${survey.id}/no"> No </a>
         </div>
       </div>
     `,
