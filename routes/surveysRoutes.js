@@ -14,7 +14,7 @@ const DOMAIN = 'sandbox9a5014b2780f4e26bd4148b7d4cd49e4.mailgun.org';
 router.post('/api/surveys/webhook', async (req, res) => {
   const recipientEmail = req.body['event-data'].recipient;
   const url = req.body['event-data'].url;
-  const urlParts = ur.split('/');
+  const urlParts = url.split('/');
   const surveyId = urlParts[5];
   const vote = urlParts[6];
 
