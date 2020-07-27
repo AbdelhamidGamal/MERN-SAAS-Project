@@ -7,8 +7,7 @@ import Header from './Header';
 import Landing from './Landing';
 import SurveyNew from './SurveyNew';
 import Thanks from './Thanks';
-
-const Dashboard = () => <h1>Dashboard</h1>;
+import Dashboard from './Dashboard';
 
 const App = ({ handleFetchUser }) => {
   useEffect(() => {

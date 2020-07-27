@@ -23,8 +23,16 @@ router.post('/api/surveys/webhook', async (req, res) => {
   // find survey
   survey = await Survey.findById(surveyId);
 
-  // mark recipient responded to true
+  // find recipient
   recipient = survey.recipients.find((r) => r.email === recipientEmail);
+
+  // if recipient already replied terminate session
+  if (recipient.responded) {
+    return res.status(405).send('You Already Voted Before!');
+  }
+
+  // mark recipient responded to true
+
   recipient.responded = true;
 
   // increment yes or no count
@@ -96,6 +104,11 @@ router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
 
   // Send response
   res.send(req.user);
+});
+
+router.get('/api/surveys', requireLogin, async (req, res) => {
+  const surveys = await Survey.find({ _user: req.user });
+  res.send(surveys);
 });
 
 module.exports = router;

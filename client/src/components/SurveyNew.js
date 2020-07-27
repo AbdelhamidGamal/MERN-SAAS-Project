@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 function SurveyNew({ handleFetchUser }) {
+  let history = useHistory();
   const [values, setValues] = useState({
     title: '',
     subject: '',
@@ -20,8 +23,9 @@ function SurveyNew({ handleFetchUser }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await axios.post('/api/surveys', values);
+    await axios.post('/api/surveys', values);
     handleFetchUser();
+    history.push('/surveys');
   }
 
   return (
