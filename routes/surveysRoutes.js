@@ -18,6 +18,8 @@ router.post('/api/surveys/webhook', async (req, res) => {
   const surveyId = urlParts[5];
   const vote = urlParts[6];
 
+  console.log('surveyRoutes.js line 21 --- survey id :', surveyId);
+
   // find survey
   survey = await Survey.findById(surveyId);
 
