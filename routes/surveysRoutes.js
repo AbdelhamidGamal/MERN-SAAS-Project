@@ -12,8 +12,8 @@ const mailgun = require('mailgun-js');
 const DOMAIN = 'sandbox9a5014b2780f4e26bd4148b7d4cd49e4.mailgun.org';
 
 router.post('/api/surveys/webhook', (req, res) => {
-  const recipient = body.event - data.recipient;
-  const link = body.event - data.recipient - domain;
+  const recipient = req.body['event-data'].recipient;
+  const link = req.body['event-data']['recipient-domain'];
   console.log(recipient, link);
 });
 
