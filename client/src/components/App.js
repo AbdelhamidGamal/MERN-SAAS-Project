@@ -5,9 +5,10 @@ import * as actions from '../actions';
 
 import Header from './Header';
 import Landing from './Landing';
+import SurveyNew from './SurveyNew';
+import Thanks from './Thanks';
 
 const Dashboard = () => <h1>Dashboard</h1>;
-const SurveyNew = () => <h1>SurveyNew</h1>;
 
 const App = ({ handleFetchUser }) => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = ({ handleFetchUser }) => {
         <Route exact path='/' component={Landing} />
         <Route exact path='/surveys' component={Dashboard} />
         <Route exact path='/surveys/new' component={SurveyNew} />
+        <Route exact path='/surveys/thanks' component={Thanks} />
       </Switch>
     </BrowserRouter>
   );
