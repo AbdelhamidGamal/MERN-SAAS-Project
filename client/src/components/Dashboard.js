@@ -14,8 +14,6 @@ function Dashboard() {
     handleFetchSurveys().then((surveys) => setSurveys(surveys));
   }, []);
 
-  console.log(surveys);
-
   return (
     <div className='container'>
       <div>
@@ -33,7 +31,7 @@ function Dashboard() {
                 <div className='card grey darken-1'>
                   <div className='card-content white-text'>
                     <span className='card-title'>{survey.title}</span>
-                    <p>{survey.dataSent}</p>
+                    <p>{new Date(survey.dataSent).toDateString()}</p>
                     <p>Yes : {survey.yes}</p>
                     <p>no : {survey.no}</p>
                   </div>

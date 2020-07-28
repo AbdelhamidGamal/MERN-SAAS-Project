@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 import Header from './Header';
 import Landing from './Landing';
-import SurveyNew from './SurveyNew';
+import SurveyNew from './surveys/SurveyNew';
 import Thanks from './Thanks';
 import Dashboard from './Dashboard';
 
