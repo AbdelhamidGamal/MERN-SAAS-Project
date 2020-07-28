@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FETCH_USER } from './types';
 
-function fetchUser(user) {
+export function fetchUser(user) {
   return {
     type: FETCH_USER,
     user,

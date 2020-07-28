@@ -50,14 +50,14 @@ router.post('/api/surveys/webhook', async (req, res) => {
 });
 
 router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
-  const { title, subject, body, recipients } = req.body;
+  const { title, subject, body, emails } = req.body;
 
   // Create Survey
   const survey = new Survey({
     title,
     subject,
     body,
-    recipients: recipients.split(',').map((email) => ({ email: email.trim() })),
+    recipients: emails.split(',').map((email) => ({ email: email.trim() })),
     _user: req.user,
     dataSent: Date.now(),
   });
@@ -71,7 +71,7 @@ router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
 
   const data = {
     from: 'Emaily <no-replay@emaily.com>',
-    to: recipients,
+    to: emails,
     subject: subject,
     html: `
       <div style='text-align:center'>

@@ -12,7 +12,7 @@ import Dashboard from './Dashboard';
 const App = ({ handleFetchUser }) => {
   useEffect(() => {
     handleFetchUser();
-  }, []);
+  }, [handleFetchUser]);
 
   return (
     <BrowserRouter>
