@@ -1,47 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { handleFetchSurveys } from '../actions';
 
-async function handleFetchSurveys() {
-  const res = await axios.get('/api/surveys');
-  return res.data;
-}
-
-function Dashboard() {
-  const [surveys, setSurveys] = useState(false);
-
+function Dashboard({ surveys, handleFetchSurveys }) {
   useEffect(() => {
-    handleFetchSurveys().then((surveys) => setSurveys(surveys));
+    handleFetchSurveys();
   }, []);
 
   return (
     <div className='container'>
       <div>
-        <button className='btn white-text blue'>
+        <button
+          style={{ padding: '0 1rem', marginTop: '1rem', marginLeft: '1rem' }}
+          className='btn white-text blue'
+        >
           <Link className='white-text' to='/surveys/new'>
             Create A Survey
           </Link>
         </button>
       </div>
-      {surveys &&
-        surveys.map((survey) => {
-          return (
-            <div key={survey._id}>
-              <div className='col s12 m6'>
-                <div className='card grey darken-1'>
-                  <div className='card-content white-text'>
-                    <span className='card-title'>{survey.title}</span>
-                    <p>{new Date(survey.dataSent).toDateString()}</p>
-                    <p>Yes : {survey.yes}</p>
-                    <p>no : {survey.no}</p>
+      <div className='row'>
+        {surveys &&
+          surveys.map((survey) => {
+            return (
+              <div key={survey._id}>
+                <div className='col s12'>
+                  <div className='card grey darken-1'>
+                    <div className='card-content white-text'>
+                      <span className='card-title'>{survey.title}</span>
+                      <p>{survey.body}</p>
+                      <p className='right'>
+                        Sent Date: {new Date(survey.dataSent).toDateString()}
+                      </p>
+                      <p>Yes : {survey.yes}</p>
+                      <p>no : {survey.no}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 }
 
-export default Dashboard;
+export default connect((state) => ({ surveys: state.surveys }), {
+  handleFetchSurveys,
+})(Dashboard);

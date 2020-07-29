@@ -11,42 +11,34 @@ const Survey = mongoose.model('surveys');
 const mailgun = require('mailgun-js');
 const DOMAIN = 'sandbox9a5014b2780f4e26bd4148b7d4cd49e4.mailgun.org';
 
-router.post('/api/surveys/webhook', async (req, res) => {
-  const recipientEmail = req.body['event-data'].recipient;
+router.post('/api/surveys/webhook', (req, res) => {
+  // get the data out of reqeust body
+  const email = req.body['event-data'].recipient;
   const url = req.body['event-data'].url;
   const urlParts = url.split('/');
   const surveyId = urlParts[5];
-  const vote = urlParts[6];
+  const choice = urlParts[6];
 
-  console.log('surveyRoutes.js line 21 --- survey id :', surveyId);
+  console.log(email, surveyId, choice);
 
-  // find survey
-  survey = await Survey.findById(surveyId);
+  // find and update survey
 
-  // find recipient
-  recipient = survey.recipients.find((r) => r.email === recipientEmail);
-
-  // if recipient already replied terminate session
-  if (recipient.responded) {
-    return res.status(405).send('You Already Voted Before!');
-  }
-
-  // mark recipient responded to true
-
-  recipient.responded = true;
-
-  // increment yes or no count
-  if (vote === 'yes') {
-    survey.yes++;
-  } else {
-    survey.no++;
-  }
-
-  // save survey
-  await survey.save();
+  Survey.updateOne(
+    {
+      _id: surveyId,
+      recipients: {
+        $elemMatch: { email, responded: false },
+      },
+    },
+    {
+      $inc: { [choice]: 1 },
+      $set: { 'recipients.$.responded': true },
+      lastResponse: new Date(),
+    }
+  ).exec();
 
   // respond to request
-  res.status(200).send('voted');
+  res.send({});
 });
 
 router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
@@ -107,7 +99,9 @@ router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
 });
 
 router.get('/api/surveys', requireLogin, async (req, res) => {
-  const surveys = await Survey.find({ _user: req.user });
+  const surveys = await Survey.find({ _user: req.user }).select({
+    recipients: false,
+  });
   res.send(surveys);
 });
 
