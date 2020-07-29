@@ -22,19 +22,21 @@ function Dashboard({ surveys, handleFetchSurveys }) {
       </div>
       <div className='row'>
         {surveys &&
-          surveys.map((survey) => {
+          surveys.reverse().map((survey) => {
             return (
               <div key={survey._id}>
                 <div className='col s12'>
-                  <div className='card grey darken-1'>
+                  <div className='card blue-grey darken-1'>
                     <div className='card-content white-text'>
                       <span className='card-title'>{survey.title}</span>
                       <p>{survey.body}</p>
                       <p className='right'>
                         Sent Date: {new Date(survey.dataSent).toDateString()}
                       </p>
-                      <p>Yes : {survey.yes}</p>
-                      <p>no : {survey.no}</p>
+                      <div className='card-action'>
+                        <p>Yes : {survey.yes}</p>
+                        <p>no : {survey.no}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
