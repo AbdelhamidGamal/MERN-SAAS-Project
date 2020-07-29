@@ -1,2 +1,6 @@
 export { handleFetchUser, handleToken } from './auth';
-export { handleCreateSurvey, handleFetchSurveys } from './surveys';
+export {
+  handleCreateSurvey,
+  handleFetchSurveys,
+  handleDeleteSurvey,
+} from './surveys';

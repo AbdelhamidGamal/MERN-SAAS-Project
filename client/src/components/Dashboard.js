@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleFetchSurveys } from '../actions';
+import { handleFetchSurveys, handleDeleteSurvey } from '../actions';
+import axios from 'axios';
 
-function Dashboard({ surveys, handleFetchSurveys }) {
+function Dashboard({ surveys, handleFetchSurveys, handleDeleteSurvey }) {
   useEffect(() => {
     handleFetchSurveys();
   }, []);
@@ -37,6 +38,14 @@ function Dashboard({ surveys, handleFetchSurveys }) {
                         <p>Yes : {survey.yes}</p>
                         <p>no : {survey.no}</p>
                       </div>
+                      <div className='card-footer'>
+                        <button
+                          onClick={() => handleDeleteSurvey(survey._id)}
+                          className='btn red'
+                        >
+                          Delete Survey
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -50,4 +59,5 @@ function Dashboard({ surveys, handleFetchSurveys }) {
 
 export default connect((state) => ({ surveys: state.surveys }), {
   handleFetchSurveys,
+  handleDeleteSurvey,
 })(Dashboard);

@@ -104,4 +104,15 @@ router.get('/api/surveys', requireLogin, async (req, res) => {
   res.send(surveys);
 });
 
+// Delete A Survey
+router.post('/api/surveys/delete', requireLogin, async (req, res) => {
+  const { id } = req.body;
+  try {
+    await Survey.deleteOne({ _id: id, _user: req.user });
+    res.send({ result: 'Deleted' });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;

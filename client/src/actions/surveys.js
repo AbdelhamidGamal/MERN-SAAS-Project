@@ -23,3 +23,11 @@ export function handleFetchSurveys() {
     dispatch(FetchSurveys(res.data));
   };
 }
+
+export function handleDeleteSurvey(id) {
+  return async (dispatch) => {
+    console.log(id);
+    await axios.post(`/api/surveys/delete`, { id });
+    dispatch(handleFetchSurveys());
+  };
+}
