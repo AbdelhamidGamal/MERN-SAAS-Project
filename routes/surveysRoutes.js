@@ -9,7 +9,11 @@ const Survey = mongoose.model('surveys');
 
 // mailGun Config
 const mailgun = require('mailgun-js');
-const DOMAIN = 'sandbox9a5014b2780f4e26bd4148b7d4cd49e4.mailgun.org';
+
+const mg = mailgun({
+  apiKey: keys.mailGunApiKey,
+  domain: keys.MailGunDomain,
+});
 
 router.post('/api/surveys/webhook', (req, res) => {
   // get the data out of reqeust body
@@ -55,11 +59,6 @@ router.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
   });
 
   // create the message and send it
-
-  const mg = mailgun({
-    apiKey: '6c2a2115b4d15de7134c37d81989d248-a65173b1-570bf04d',
-    domain: DOMAIN,
-  });
 
   const data = {
     from: 'Emaily <no-replay@emaily.com>',
