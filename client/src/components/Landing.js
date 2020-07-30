@@ -4,12 +4,14 @@ function Landing() {
   return (
     <div id='landing'>
       <div className='landing-info'>
-        <h1>Collect Clients Feedback</h1>
+        <h1>Improve Your Service</h1>
         <p>
-          The prefect way to improve your Service/App is collecting what your
-          users reviews!, Use Emaily, It's never been easier to do exactly that!
-          start collecting your clients feedback now!
+          The prefect way to improve your Service is collecting your clients
+          feedback!, Use Feedbacker, It's never been easier to do exactly that!
         </p>
+        <h5 style={{ color: 'gray' }}>
+          Start collecting your clients feedback now!
+        </h5>
       </div>
     </div>
   );

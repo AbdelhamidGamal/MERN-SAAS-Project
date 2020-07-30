@@ -11,7 +11,7 @@ function Header({ user }) {
         <div className='nav-wrapper grey darken-4'>
           <div className='container'>
             <Link to={user ? '/surveys' : '/'} className='brand-logo left'>
-              Emaily
+              FeedBacker
             </Link>
             <ul className='right'>
               {user === null ? (

@@ -2,24 +2,18 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleFetchSurveys, handleDeleteSurvey } from '../actions';
-import axios from 'axios';
 
 function Dashboard({ surveys, handleFetchSurveys, handleDeleteSurvey }) {
   useEffect(() => {
     handleFetchSurveys();
-  }, []);
+  }, [handleFetchSurveys]);
 
   return (
     <div className='container'>
       <div>
-        <button
-          style={{ padding: '0 1rem', marginTop: '1rem', marginLeft: '1rem' }}
-          className='btn white-text blue'
-        >
-          <Link className='white-text' to='/surveys/new'>
-            Create A Survey
-          </Link>
-        </button>
+        <Link className='white-text btn btn-flat teal' to='/surveys/new'>
+          Create A Survey
+        </Link>
       </div>
       <div className='row'>
         {surveys &&
