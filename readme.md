@@ -1,6 +1,9 @@
 # MERN-SAAS-Project
 
 ### try it : https://lit-island-27850.herokuapp.com/
+### fake card info to add credits : 
+* use any email / expiry date (in the future ofcourse) / CVC
+* card number : 4242 4242 4242 4242
 
 - Note That you won't be able to send emails becouse the MailGun domain assosiates with the app is not verified and only restricted to sending emails to only verified emails, to test the whole app functionality feel free to install the app and replace the api keys with your own.
 
